@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('test');
+})->name('test');
+
+Route::get('/test2', function () {
+    return view('test2');
+})->name('test2');
+

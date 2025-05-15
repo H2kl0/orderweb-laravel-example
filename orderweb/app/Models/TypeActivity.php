@@ -13,4 +13,10 @@ class TypeActivity extends Model
     protected $fillable = [
         'description'
     ];
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
 }

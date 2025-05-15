@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Causal;
 use App\Models\Technician;
+use App\Models\TypeActivity;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -45,5 +46,8 @@ class DatabaseSeeder extends Seeder
         Technician::factory(1)->create(); //tecnico sin especialidad
 
         $this->call(ActivitySeeder::class);
+        //sedders de prueba
+        //$this->call(TestTechnicianSeeder::class);
+        $this->call(TestActivitySeeder::class);
     }
 }

@@ -17,7 +17,15 @@ Route::get('/', function () {
     return view('test');
 })->name('test');
 
-Route::get('/test2', function () {
+
+Route::get('/', function () {
     return view('test2');
 })->name('test2');
 
+Route::get('/causal/create', function () {
+    return view('causal.create');
+})->name('causal.create');
+
+Route::get('/causal/index', function () {
+    return view('causal.index');
+})->name('causal.index');

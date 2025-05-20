@@ -1,10 +1,10 @@
 @extends('templates.base')
-@section('title', 'Listado causales')
-@section('header', 'Listado causales')
+@section('title', 'Listado de ordenes')
+@section('header', 'Listado de ordenes')
 @section('content')
 <div class="row">
     <div class="col-lg-12 mb-4 d-grid gap-2 d-md-block">
-        <a href="{{ route('causal.create') }}" class="btn btn-primary">Crear</a>
+        <a href="{{ route('order.create') }}" class="btn btn-primary">Crear</a>
     </div>
 </div>
 
@@ -15,26 +15,31 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Descripción</th>
-                    <th>Acciones</th>
+                    <th>Fecha de legalización</th>
+                    <th>Dirreción</th>
+                    <th>ciudad</th>
+                    <th>causal</th>
+                    <th>Observaciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($causals as $causal)
                 <tr>
-                    <td>{{ $causal['id'] }}</td>
-                    <td>{{ $causal['description'] }}</td>
+                    <td>1</td>
+                    <td>2021-01-01</td>
+                    <td>Cr-3#21-5</td>
+                    <td>Tulua</td>
+                    <td>TOC</td>
+                    <td>Prueba</td>
                     <td>
-                        <a href="{{ route('causal.edit', $causal['id']) }}" title="Editar" class="btn btn-primary btn-circle btn-sm">
+                        <a href="#" title="Editar" class="btn btn-primary btn-circle btn-sm">
                         <i class="far fa-edit"></i>
                         </a>
-                        <a href="{{ route('causal.destroy', $causal['id']) }}" title="Eliminar" class="btn btn-danger btn-circle btn-sm"
+                        <a href="#" title="Eliminar" class="btn btn-danger btn-circle btn-sm"
                           onclick="return remove();">
                         <i class="fas fa-trash"></i>
                         </a>
                     </td>
                 </tr>
-                 @endforeach
             </tbody>
         </table>    
     </div>    
@@ -42,5 +47,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/general.js') }}"></script>
+   <script src="{{  asset('js/general.js') }}"></script>
+
 @endsection

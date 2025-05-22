@@ -23,14 +23,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>2021-01-01</td>
-                    <td>Cr-3#21-5</td>
-                    <td>Tulua</td>
-                    <td>TOC</td>
-                    <td>Prueba</td>
-                    <td>
+                @foreach ($orders as $order)
+                    <tr>
+                        <td>{{ $order['id'] }}</td>
+                        <td>{{ $order['legalization_date'] }}</td>
+                        <td>{{ $order['address'] }}</td>
+                        <td>{{ $order['city'] }}</td>
+                        <td>{{ $order->causal->description }}</td>
+                        <td>{{ $order->observations->description }}</td>
                         <a href="#" title="Editar" class="btn btn-primary btn-circle btn-sm">
                         <i class="far fa-edit"></i>
                         </a>
@@ -38,8 +38,8 @@
                           onclick="return remove();">
                         <i class="fas fa-trash"></i>
                         </a>
-                    </td>
-                </tr>
+                    </tr>
+                @endforeach
             </tbody>
         </table>    
     </div>    
@@ -47,6 +47,5 @@
 @endsection
 
 @section('scripts')
-   <script src="{{  asset('js/general.js') }}"></script>
-
+   <script src="{{ asset('js/order-index.js') }}"></script>
 @endsection

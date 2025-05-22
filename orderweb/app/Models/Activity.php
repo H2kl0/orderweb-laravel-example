@@ -20,7 +20,7 @@ class Activity extends Model
     {
         return $this->belongsTo(technician::class, 'technician_id');
     }
-    public function typeActivity()
+    public function type_activity()
     {
         return $this->belongsTo(TypeActivity::class, 'type_activity_id');
     }

@@ -7,9 +7,9 @@
 <div class="d-flex justify-content-center">
     <div class="col-lg-8">
         <div class="card p-4">
-            <form action="#" method="POST">
+            <form action="{{  route('activity.update', $activity->id) }}" method="POST">
                 @csrf
-
+                @method('PUT')
                 <div class="row">
                     <div class="col-lg-6 mb-4">
                         <label for="description">Descripción</label>
@@ -25,13 +25,25 @@
                     <div class="col-lg-6 mb-4">
                         <label for="technician_id">Técnico</label>
                         <select name="technician_id" id="technician_id" class="form-control" required>
-                            <option value="">Seleccione</option>
+                            <option value="">Seleccione</option>     
+
+                            @foreach ($technicias as $technician)
+                            <option value="{{ $technician['id'] }}">
+                            {{ $technician['name'] }}    
+                            </option>   
+                            @endforeach
+
                         </select>
                     </div>
                     <div class="col-lg-6 mb-4">
                         <label for="type_activity_id">Tipo de actividad</label>
                         <select name="type_activity_id" id="type_activity_id" class="form-control" required>
                             <option value="">Seleccione</option>
+                            @foreach ($types as $type)
+                            <option value="{{ $type['id'] }}">
+                            {{ $type['description'] }}    
+                            </option>   
+                            @endforeach
                         </select>
                     </div>
                 </div>

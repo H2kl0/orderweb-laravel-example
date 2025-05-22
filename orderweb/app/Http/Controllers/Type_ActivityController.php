@@ -1,0 +1,103 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\TypeActivity;
+use Illuminate\Http\Request;
+use Mockery\Matcher\Type;
+
+class Type_ActivityController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $TypeActivity = TypeActivity::all();
+        return view('type_activity.index', compact('TypeActivity'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+         return view('type_activity.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $TypeActivity =  TypeActivity::create($request->all());
+        session()->flash('message', 'Registro creado exitosamente');
+        return redirect()->route('type_activity.index');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $TypeActivity = TypeActivity::find($id);
+        if ($TypeActivity) //si existe el causal
+        {
+            return view('type_activity.edit', compact('TypeActivity'));
+        }
+        else
+        {
+            session()->flash('Warning', 'No se encuentra el resgistro solicitado');
+             
+        }
+        return redirect()->route('type_activity.index');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $TypeActivity = TypeActivity::find($id);
+        if ($TypeActivity) //si existe el causal
+        {
+            return view('type_activity.edit', compact('TypeActivity'));
+            session()->flash('message', 'Registro actualizado exitosamente');
+             
+        }
+        else
+        {
+            session()->flash('Warning', 'No se encuentra el resgistro solicitado');
+ 
+        }
+        return redirect()->route('type_activity.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $TypeActivity = TypeActivity::find($id);
+        if ($TypeActivity) //si existe el causal
+        {
+            $TypeActivity->delete();
+            session()->flash('Warning', 'No se encuentra el resgistro solicitado');
+        }
+        else
+        {
+            session()->flash('Warning', 'No se encuentra el resgistro solicitado');
+            
+        }
+
+        return redirect()->route('type_activity.index');
+    }
+}

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $('#table_data').DataTable({
         "pageLength": 10,
         "lengthChange": false,
@@ -16,8 +16,9 @@ $(document).ready(function() {
 
 function remove() {
     var x = confirm("¿Está seguro de que desea eliminar el registro?");
-    if (x)
+    if (x) {
         return true;
-    else
+    } else {
         return false;
+    }
 }

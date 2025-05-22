@@ -22,13 +22,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Actividades prueba</td>
-                    <td>10</td>
-                    <td>Eltor tillador</td>
-                    <td>TOC</td>
-                    <td>
+                @foreach ($activities as $activity)
+                <td>{{ $activity['id'] }}</td>
+                <td>{{ $activity['description'] }}</td>
+                <td>{{ $activity['hours'] }}</td>
+                <td>{{ $activity->technician->document }} - {{ $activity->technician->name }}</td>
+                <td> {{ $activity->type_activity->description }}</td>
                         <a href="#" title="Editar" class="btn btn-primary btn-circle btn-sm">
                         <i class="far fa-edit"></i>
                         </a>
@@ -37,7 +36,7 @@
                         <i class="fas fa-trash"></i>
                         </a>
                     </td>
-                </tr>
+                @endforeach
             </tbody>
         </table>    
     </div>    

@@ -4,12 +4,18 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12 mb-4">
-        <form action="#" method="POST">
+        <form action="{{ route('technician.store') }}" method="POST">
             @csrf
             <div class="row form-group">
                 <div class = "col-lg-12 mb-4">
-                    <label for="description">Id</label>
-                    <input type="text" class="form-control" id="description" name="description" required>
+                    <label for="speciality">Especialidad</label>
+                    <input list="specialites-list" class="form-control" name="speciality" id="speciality" required>
+                    <datalist id="specialites-list">
+                        <option>Instalacion de redes</option>
+                        <option>Construccion</option>
+                        <option>Lectura de redes</option>
+                        <option>Plomeria</option>
+                    </datalist>
                 </div>
                                 <div class = "col-lg-12 mb-4">
                     <label for="description">Documento</label>

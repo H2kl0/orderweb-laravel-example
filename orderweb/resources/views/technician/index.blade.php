@@ -21,21 +21,23 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($technicians as $technician)
                 <tr>
-                    <td>1</td>
-                    <td>11111218416</td>
-                    <td>Medicina</td>
-                    <td>123456789</td>
-                    <td>
-                        <a href="#" title="Editar" class="btn btn-primary btn-circle btn-sm">
+                    <td>{{ $technician['id'] }}</td>
+                    <td>{{ $technician['document'] }}</td>
+                    <td>{{ $technician['speciality'] }}</td>
+                    <td>{{ $technician['phone'] }}</td>
+                    <td>                        
+                        <a href="{{ route('technician.edit', $technician['id']) }}" title="Editar" class="btn btn-primary btn-circle btn-sm">
                         <i class="far fa-edit"></i>
-                        </a>
-                        <a href="#" title="Eliminar" class="btn btn-danger btn-circle btn-sm"
+                        </a>                        
+                        <a href="{{ route('technician.destroy', $technician['id']) }}" title="Eliminar" class="btn btn-danger btn-circle btn-sm"
                           onclick="return remove();">
                         <i class="fas fa-trash"></i>
                         </a>
                     </td>
                 </tr>
+                 @endforeach
             </tbody>
         </table>    
     </div>    

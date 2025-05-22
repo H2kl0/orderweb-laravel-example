@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CausalController;
+use App\Http\Controllers\ObservationController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TechnicianController;
+use App\Http\Controllers\Type_ActivityController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,66 +39,55 @@ Route::prefix('causal')->group(function () {
     Route::get('/delete/{id}', [CausalController::class,'destroy'])->name('causal.destroy');
 });
 
-Route::get('/observations/index', function () {
-    return view('observations.index');
-})->name('observations.index');
+Route::prefix('observations')->group(function () {
+    Route::get('/index', [ObservationController::class,'index'])->name('observations.index');
+    Route::get('/create', [ObservationController::class,'create'])->name('observations.create');
+    Route::get('/edit/{id}', [ObservationController::class,'edit'])->name('observations.edit');
+    Route::post('/store', [ObservationController::class,'store'])->name('observations.store');
+    Route::put('/update/{id}', [ObservationController::class,'update'])->name('observations.update');
+    Route::get('/delete/{id}', [ObservationController::class,'destroy'])->name('observations.destroy');
+});
 
-Route::get('/observations/create', function () {
-    return view('observations.create');
-})->name('observations.create');
+Route::prefix('TypeActivity')->group(function () {
+    Route::get('/index', [Type_ActivityController::class,'index'])->name('type_activity.index');
+    Route::get('/create', [Type_ActivityController::class,'create'])->name('type_activity.create');
+    Route::get('/edit/{id}', [Type_ActivityController::class,'edit'])->name('type_activity.edit');
+    Route::post('/store', [Type_ActivityController::class,'store'])->name('type_activity.store');
+    Route::put('/update/{id}', [Type_ActivityController::class,'update'])->name('type_activity.update');
+    Route::get('/delete/{id}', [Type_ActivityController::class,'destroy'])->name('type_activity.destroy');
 
-route::get('/type_activity/create', function () {
-    return view('type_activity.create');
-})->name('type_activity.create');
+});
 
-Route::get('/type_activity/index', function () {
-    return view('type_activity.index');
-})->name('type_activity.index');
+Route::prefix('technician')->group(function () {
+    Route::get('/index', [TechnicianController::class,'index'])->name('technician.index');
+    Route::get('/create', [TechnicianController::class,'create'])->name('technician.create');
+    Route::get('/edit/{id}', [TechnicianController::class,'edit'])->name('technician.edit');
+    Route::post('/store', [TechnicianController::class,'store'])->name('technician.store');
+    Route::put('/update/{id}', [TechnicianController::class,'update'])->name('technician.update');
+    Route::get('/delete/{id}', [TechnicianController::class,'destroy'])->name('technician.destroy');
+});
 
-Route::get('activity/create', function () {
-    return view('activity.create');
-})->name('activity.create');
+Route::prefix('acivity')->group(function (){
+    Route::get('/index', [ActivityController::class,'index'])->name('activity.index');
+    Route::get('/create', [ActivityController::class,'create'])->name('activity.create');
+    Route::get('/edit/{id}', [ActivityController::class,'edit'])->name('activity.edit');
+    Route::post('/store', [ActivityController::class,'store'])->name('activity.store');
+    Route::put('/update/{id}', [ActivityController::class,'update'])->name('activity.update');
+    Route::get('/delete/{id}', [ActivityController::class,'destroy'])->name('activity.destroy');
+});
 
-Route::get('activity/index', function () {
-    return view('activity.index');
-})->name('activity.index');
-
-Route::get('order/create', function () {
-    return view('order.create');
-})->name('order.create');
-
-Route::get('order/index', function () {
-    return view('order.index');
-})->name('order.index');
-
-Route::get('technician/create', function () {
-    return view('technician.create');
-})->name('technician.create');
-
-Route::get('technician/index', function () {
-    return view('technician.index');
-})->name('technician.index');
-//edits
-Route::get('/type_activity/edit', function () {
-    return view('type_activity.edit');
-})->name('type_activity.edit');
-
-Route::get('activity/edit', function () {
-    return view('activity.edit');
-})->name('activity.edit');
-
-Route::get('order/edit', function () {
-    return view('order.edit');
-})->name('order.edit');
-
-Route::get('technical/edit', function () {
-    return view('technical.edit');
-})->name('technical.edit');
+Route::prefix('order')->group(function () {
+    Route::get('/index', [OrderController::class,'index'])->name('order.index');
+    Route::get('/create', [OrderController::class,'create'])->name('order.create');
+    Route::get('/edit/{id}', [OrderController::class,'edit'])->name('order.edit');
+    Route::post('/store', [OrderController::class,'store'])->name('order.store');
+    Route::put('/update/{id}', [OrderController::class,'update'])->name('order.update');
+    Route::get('/delete/{id}', [OrderController::class,'destroy'])->name('order.destroy');
+});
 
 
 
-Route::get('/observations/edit', function () {
-    return view('observations.edit');
-})->name('observations.index');
+
+
 
 

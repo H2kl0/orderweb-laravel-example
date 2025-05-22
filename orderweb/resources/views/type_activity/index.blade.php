@@ -20,21 +20,27 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($TypeActivity as $TypeActivity)
                 <tr>
-                    <td>1</td>
-                    <td>Descrición prueba</td>
+                    <td>{{ $TypeActivity['id'] }}</td>
+                    <td>{{ $TypeActivity['description'] }}</td>
                     <td>
-                        <a href="#" title="Editar" class="btn btn-primary btn-circle btn-sm">
+                        <a href="{{ route('type_activity.edit', $TypeActivity['id']) }}" title="Editar" class="btn btn-primary btn-circle btn-sm">
                         <i class="far fa-edit"></i>
                         </a>
-                        <a href="#" title="Eliminar" class="btn btn-danger btn-circle btn-sm"
+                        <a href="{{ route('type_activity.destroy', $TypeActivity['id']) }}" title="Eliminar" class="btn btn-danger btn-circle btn-sm"
                           onclick="return remove();">
                         <i class="fas fa-trash"></i>
                         </a>
                     </td>
                 </tr>
+                    
+                @endforeach
             </tbody>
         </table>    
     </div>    
 </div>
+@endsection
+@section('scripts')
+    <script src="{{ asset('js/general.js') }}"></script>
 @endsection

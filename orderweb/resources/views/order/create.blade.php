@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-lg-6 mb-4">
                     <label for="legalization_date">Fecha de legalización</label>
-                    <input type="text" class="form-control" id="legalization_date" name="legalization_date" required>
+                    <input type="date" class="form-control" id="legalization_date" name="legalization_date" required>
                 </div>
                 <div class="col-lg-6 mb-4">
                     <label for="address">Dirección</label>
@@ -56,8 +56,8 @@
         <div class="row">
             <div class="col-lg-12 mb-4">
                 <div class="alert alert-danger" role="alert">
-                    <i class="fa-solid fa-lightbulb"></i> Para añadir actividades a la orden, primero debe crearla y
-                    luego dar clic en la acción de editar.
+                        <i class="fa-solid fa-lightbuld"></i> Para añadir actividades a la orden, primero debe
+                        crearla y luego dar clic en la opción <i class="fas fa-edit"></i> <strong>Editar</strong>
             </div>
     </div>
 </div>

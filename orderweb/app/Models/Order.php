@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Activity;
 
 class Order extends Model
 {
@@ -27,7 +28,7 @@ class Order extends Model
     }
     public function activities()
     {
-        return $this->belongsToMany(Activity::class, 'order_activity');
-        #return $this->belongsToMany(OrderActivity::class 'order_activity', 'order_id', 'activity_id');
+        //return $this->belongsToMany(Activity::class, 'order_activity');
+        return $this->belongsToMany(Activity::class, 'order_activity', 'order_id', 'activity_id');
     }
 }

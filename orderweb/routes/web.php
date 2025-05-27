@@ -21,13 +21,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('test');
-})->name('test');
+    return view('index');
+})->name('index');
 
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('test2');
-})->name('test2');
+})->name('test2'); */
 
 //prefix the use is for not to have the same name of the route
 Route::prefix('causal')->group(function () {
@@ -83,6 +83,8 @@ Route::prefix('order')->group(function () {
     Route::post('/store', [OrderController::class,'store'])->name('order.store');
     Route::put('/update/{id}', [OrderController::class,'update'])->name('order.update');
     Route::get('/delete/{id}', [OrderController::class,'destroy'])->name('order.destroy');
+    Route::get('/add_activity/{order_id}/{activity_id}', [OrderController::class,'add_activity'])->name('order.add_activity');
+    Route::get('/remove_activity/{order_id}/{activity_id}', [OrderController::class,'remove_activity'])->name('order.remove_activity');
 });
 
 

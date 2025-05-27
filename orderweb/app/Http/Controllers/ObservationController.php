@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Observation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ObservationController extends Controller
 {
+    private $rules = [
+        'description' => 'required|string|min:3|max:255'
+    ];
+    private $traductionAttributes = [
+        'description' => 'Descripción'
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -30,6 +37,14 @@ class ObservationController extends Controller
      */
     public function store(Request $request)
     {
+         $validator = Validator::make($request->all(), $this->rules);
+      $validator->setAttributeNames($this->traductionAttributes);
+        if ($validator->fails()) 
+        {
+            $errors = $validator->errors();
+            return redirect()->route('observations.create')
+                ->withInput()->withErrors($errors);
+        }
         $Observation =  Observation::create($request->all());
         session()->flash('message', 'Registro creado exitosamente');
         return redirect()->route('observations.index');
@@ -63,6 +78,15 @@ public function edit(string $id)
      */
 public function update(Request $request, string $id)
 {
+             $validator = Validator::make($request->all(), $this->rules);
+      $validator->setAttributeNames($this->traductionAttributes);
+        if ($validator->fails()) 
+        {
+            $errors = $validator->errors();
+            return redirect()->route('observations.edit')
+                ->withInput()->withErrors($errors);
+    
+        }
     $observation = Observation::find($id);
 
     if ($observation) {
@@ -72,7 +96,7 @@ public function update(Request $request, string $id)
         session()->flash('Warning', 'No se encuentra el registro solicitado');
     }
 
-    return redirect()->route('observations.index');
+    return redirect()->route('observations.index', $id);
 }
 
     /**

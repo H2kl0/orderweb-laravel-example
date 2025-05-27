@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\TypeActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Mockery\Matcher\Type;
 
 class Type_ActivityController extends Controller
 {
+    private $rules = [
+        'description' => 'required|string|min:3|max:255'
+    ];
+    private $traductionAttributes = [
+        'description' => 'Descripción'
+    ];
+    
     /**
      * Display a listing of the resource.
      */
@@ -30,10 +38,19 @@ class Type_ActivityController extends Controller
      */
     public function store(Request $request)
     {
+         $validator = Validator::make($request->all(), $this->rules);
+      $validator->setAttributeNames($this->traductionAttributes);
+        if ($validator->fails()) 
+        {
+            $errors = $validator->errors();
+            return redirect()->route('type_activity.create')
+                ->withInput()->withErrors($errors);
+
         $TypeActivity =  TypeActivity::create($request->all());
         session()->flash('message', 'Registro creado exitosamente');
         return redirect()->route('type_activity.index');
     }
+}
 
     /**
      * Display the specified resource.
@@ -48,29 +65,36 @@ class Type_ActivityController extends Controller
      */
     public function edit(string $id)
     {
-        $TypeActivity = TypeActivity::find($id);
-        if ($TypeActivity) //si existe el causal
+        $typeActivity = TypeActivity::find($id);
+        if($typeActivity) //si existe
         {
-            return view('type_activity.edit', compact('TypeActivity'));
+            return view('type_activity.edit', compact('typeActivity'));
         }
         else
         {
-            session()->flash('Warning', 'No se encuentra el resgistro solicitado');
-             
+            session()->flash('warning', 'No se encuentra el tipo de actividad solicitado');
+            return redirect()->route('type_activity.index');
         }
-        return redirect()->route('type_activity.index');
-    }
+}
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $TypeActivity = TypeActivity::find($id);
-        if ($TypeActivity) //si existe el causal
+/**
+ * Update the specified resource in storage.
+ */
+public function update(Request $request, string $id)
+{
+        $validator = Validator::make($request->all(), $this->rules);
+      $validator->setAttributeNames($this->traductionAttributes);
+        if ($validator->fails()) 
         {
-            return view('type_activity.edit', compact('TypeActivity'));
-            session()->flash('message', 'Registro actualizado exitosamente');
+            $errors = $validator->errors();
+            return redirect()->route('type_activity.edit', $id)
+                ->withInput()->withErrors($errors);
+        $TypeActivity = TypeActivity::find($id);
+    $TypeActivity = TypeActivity::find($id);
+    if ($TypeActivity) //si existe el causal
+    {
+        return view('type_activity.edit', compact('TypeActivity'));
+        session()->flash('message', 'Registro actualizado exitosamente');
              
         }
         else
@@ -80,6 +104,7 @@ class Type_ActivityController extends Controller
         }
         return redirect()->route('type_activity.index');
     }
+}
 
     /**
      * Remove the specified resource from storage.

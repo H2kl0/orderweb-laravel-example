@@ -1,23 +1,21 @@
 @extends('templates.base')
-
 @section('title', 'Activity')
 @section('header', 'Activity')
-
 @section('content')
+@include('templates.messages')
 <div class="d-flex justify-content-center">
     <div class="col-lg-8">
         <div class="card p-4">
-            <form action="{{  route('activity.update', $activity->id) }}" method="POST">
+            <form action="{{ route('activity.store') }}" method="post">
                 @csrf
-                @method('PUT')
                 <div class="row">
                     <div class="col-lg-6 mb-4">
                         <label for="description">Descripción</label>
-                        <input type="text" class="form-control" id="description" name="description" required>
+                        <input type="text" class="form-control" id="description" name="description" required value="{{ old('hours') }}">
                     </div>
                     <div class="col-lg-6 mb-4">
                         <label for="time">Horas</label>
-                        <input type="text" class="form-control" id="time" name="time" required>
+                        <input type="text" class="form-control" id="time" name="time" required  value="{{ old('hours') }}">
                     </div>
                 </div>
 
@@ -27,8 +25,9 @@
                         <select name="technician_id" id="technician_id" class="form-control" required>
                             <option value="">Seleccione</option>     
 
-                            @foreach ($technicias as $technician)
-                            <option value="{{ $technician['id'] }}">
+                            @foreach ($technicians as $technician)
+                            <option value="{{ $technician['id'] }}" 
+                            @if (old('technician_id')== $technician['id']) selected @endif>
                             {{ $technician['name'] }}    
                             </option>   
                             @endforeach
@@ -40,7 +39,8 @@
                         <select name="type_activity_id" id="type_activity_id" class="form-control" required>
                             <option value="">Seleccione</option>
                             @foreach ($types as $type)
-                            <option value="{{ $type['id'] }}">
+                            <option value="{{ $type['id'] }}" 
+                            @if (old('type_activity_id')== $type['id']) selected @endif>
                             {{ $type['description'] }}    
                             </option>   
                             @endforeach
@@ -48,12 +48,14 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-6 mb-2">
-                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                <div class="row justify-content-end">
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
-                    <div class="col-lg-6 mb-2">
-                        <a href="{{ route('activity.index') }}" class="btn btn-secondary btn-block">Cancelar</a>
+                    <div class="col-auto">
+                        <a href="{{ route('activity.index') }}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </div>
                     </div>
                 </div>
 

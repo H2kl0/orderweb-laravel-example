@@ -11,35 +11,39 @@
 @include('templates.messages')
 <div class="row">
     <div class="col-lg-12 mb-4">
-        <table id="table_causals" class="table  table-striped table-hover">
+        <table id="table_causals" class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Descripción</th>
                     <th>Horas</th>
                     <th>Tecnico</th>
-                    <th>Tipo de actividad<</th>
+                    <th>Tipo de actividad</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($activities as $activity)
-                <td>{{ $activity['id'] }}</td>
-                <td>{{ $activity['description'] }}</td>
-                <td>{{ $activity['hours'] }}</td>
-                <td>{{ $activity->technician->document }} - {{ $activity->technician->name }}</td>
-                <td> {{ $activity->type_activity->description }}</td>
+                <tr>
+                    <td>{{ $activity['id'] }}</td>
+                    <td>{{ $activity['description'] }}</td>
+                    <td>{{ $activity['hours'] }}</td>
+                    <td>{{ $activity->technician->document }} - {{ $activity->technician->name }}</td>
+                    <td>{{ $activity->type_activity->description }}</td>
+                    <td>
                         <a href="#" title="Editar" class="btn btn-primary btn-circle btn-sm">
-                        <i class="far fa-edit"></i>
+                            <i class="far fa-edit"></i>
                         </a>
                         <a href="#" title="Eliminar" class="btn btn-danger btn-circle btn-sm"
-                          onclick="return remove();">
-                        <i class="fas fa-trash"></i>
+                           onclick="return remove();">
+                            <i class="fas fa-trash"></i>
                         </a>
                     </td>
+                </tr>
                 @endforeach
             </tbody>
         </table>    
-    </div>    
+    </div>
 </div>
 @endsection
 

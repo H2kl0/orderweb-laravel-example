@@ -2,6 +2,7 @@
 @section('title', 'Crear Tecnico')
 @section('header', 'Crear Tecnico')
 @section('content')
+@include('templates.messages')
 <div class="row">
     <div class="col-lg-12 mb-4">
         <form action="{{ route('technician.store') }}" method="POST">
@@ -9,7 +10,7 @@
             <div class="row form-group">
                 <div class = "col-lg-12 mb-4">
                     <label for="speciality">Especialidad</label>
-                    <input list="specialites-list" class="form-control" name="speciality" id="speciality" required>
+                    <input list="specialites-list" class="form-control" name="speciality" id="speciality" required value="{{ old('speciality') }}">
                     <datalist id="specialites-list">
                         <option>Instalacion de redes</option>
                         <option>Construccion</option>
@@ -19,15 +20,15 @@
                 </div>
                                 <div class = "col-lg-12 mb-4">
                     <label for="description">Documento</label>
-                    <input type="text" class="form-control" id="description" name="description" required>
+                    <input type="text" class="form-control" id="description" name="description" required value="{{ old('description') }}">
                 </div>
                                 <div class = "col-lg-12 mb-4">
-                    <label for="description">Especialidad</label>
-                    <input type="text" class="form-control" id="description" name="description" required>
+                    <label for="speciality">Especialidad</label>
+                    <input type="text" class="form-control" id="speciality" name="speciality" required value="{{ old('speciality') }}">
                 </div>
                                 <div class = "col-lg-12 mb-4">
-                    <label for="description">Telefono</label>
-                    <input type="text" class="form-control" id="description" name="description" required>
+                    <label for="phone">Telefono</label>
+                    <input type="text" class="form-control" id="phone" name="phone" required value="{{ old('phone') }}">
                 </div>
             </div>
             <div class="row">

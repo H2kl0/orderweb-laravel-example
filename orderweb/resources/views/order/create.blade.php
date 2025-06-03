@@ -2,6 +2,7 @@
 @section('title', 'Crear orden')
 @section('header', 'Crear orden')
 @section('content')
+@include('templates.messages')
 <div class="row">
     <div class="col-lg-12 mb-4">
         <form action="{{ route('order.store') }}" method="POST">
@@ -10,19 +11,26 @@
             <div class="row">
                 <div class="col-lg-6 mb-4">
                     <label for="legalization_date">Fecha de legalización</label>
-                    <input type="date" class="form-control" id="legalization_date" name="legalization_date" required>
+                    <input type="date" class="form-control" id="legalization_date" name="legalization_date" required value="{{ old('legalization_date') }}">
                 </div>
                 <div class="col-lg-6 mb-4">
                     <label for="address">Dirección</label>
-                    <input type="text" class="form-control" id="address" name="address" required>
+                    <input type="text" class="form-control" id="address" name="address" required value="{{ old('address') }}">
                 </div>
                 <div class="col-lg-6 mb-4">
                     <label for="city">Ciudad</label>
-                    <select name="city" id="city" class="form-control" required>
-                        <option value="Tulua">Tulua</option>
-                        <option value="San Jose">San Jose</option>
-                        <option value="San benito">San benito</option>
-                        <option value="Santa Ana">Santa Ana</option>
+                    <select name="city" id="city" class="form-control" required value = "{{ old('city') }}">
+                        @foreach ($cities as $city)
+                        <option value="{{ $city['value'] }}" @if (old('city') == $city['value']) selected @endif
+                            {{ $city['value'] == $order['city'] ? 'selected' : '' }}>
+                            @if ($city['value'] == '0')
+                            <option value="0" selected>Seleccione</option>
+                            @else
+                                <option value="{{ $city['value'] }}" @if (old('city') == $city['value']) selected @endif
+                                    {{ $city['value'] == $order['city'] ? 'selected' : '' }}>
+                                    {{ $city['name'] }}</option>
+                            @endif
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-lg-6 mb-4">

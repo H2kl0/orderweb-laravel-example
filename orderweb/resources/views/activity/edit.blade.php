@@ -1,9 +1,8 @@
 @extends('templates.base')
-
 @section('title', ' Edit Activity')
 @section('header', 'Edit Activity')
-
 @section('content')
+@include('templates.messages')
 <div class="d-flex justify-content-center">
     <div class="col-lg-8">
         <div class="card p-4">

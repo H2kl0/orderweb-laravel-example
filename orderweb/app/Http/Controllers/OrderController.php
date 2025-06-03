@@ -10,9 +10,30 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
+    private $rules = [
+        'legalization_date' => 'required|date|date_format: Y-m-d',
+        'address' => 'required|string|min:3|max:80',
+        'city' => 'string|min:3|max: 99999999999999999999',
+        'causal_id' => 'required|numeric|min:1|max:99999999999999999999',
+        'observation_id' => 'max:99999999999999999999'
+    ];
+    private $traductionAttributes = [
+        'legalization_date' => 'Fecha de Legalización',
+        'address' => 'Dirección',
+        'city' => 'Ciudad',
+        'causal_id' => 'Causal',
+        'observation_id' => 'Observación'
+    ];
+    private $cities = [
+        ['name' => 'TULUÁ', 'value' => 'TULUA'],
+        ['name' => 'CALI', 'value' => 'CALI'],
+        ['name' => 'BUGA', 'value' => 'BUGA'],
+        ['name' => 'PALMIRA', 'value' => 'PALMIRA']
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -37,6 +58,14 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+            $validator = Validator::make($request->all(), $this->rules);
+    $validator->setAttributeNames($this->traductionAttributes);
+        if ($validator->fails()) 
+        {
+            $errors = $validator->errors();
+            return redirect()->route('order.create')
+                ->withInput()->withErrors($errors);
+        }
         $order = Order::create($request->all());
         session()->flash('success', 'Order created successfully.');
         return redirect()->route('order.index');

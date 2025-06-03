@@ -4,9 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Technician;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TechnicianController extends Controller
 {
+        private $rules = [
+
+        'name' => 'required|string|min:3|max:80',
+        'speciality' => 'string|min:3|max: 50',
+        'phone' => 'string|min:1|max:30'
+    ];
+    private $traductionAttributes = [
+
+        'name' => 'Nombre',
+        'speciality' => 'Especialidad',
+        'phone' => 'Teléfono'
+    ];
+
+
     /**
      * Display a listing of the resource.
      */
@@ -30,7 +45,16 @@ class TechnicianController extends Controller
      */
     public function store(Request $request)
     {
-{
+    $this->rules['document'] = 'required|numeric|unique:technician,document|min:3|max:9999999999999';
+    $validator = Validator::make($request->all(), $this->rules);
+    $validator->setAttributeNames($this->traductionAttributes);
+        if ($validator->fails()) 
+        {
+            $errors = $validator->errors();
+            return redirect()->route('technician.create')
+                ->withInput()->withErrors($errors);
+        }
+
     $validated = $request->validate([
         'document' => 'required|string|max:255', 
     ]);
@@ -40,7 +64,6 @@ class TechnicianController extends Controller
     session()->flash('message', 'Registro creado exitosamente');
     return redirect()->route('technician.index');
 }
-    }
 
     /**
      * Display the specified resource.
@@ -53,8 +76,16 @@ class TechnicianController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
+    $validator = Validator::make($request->all(), $this->rules);
+    $validator->setAttributeNames($this->traductionAttributes);
+        if ($validator->fails()) 
+        {
+            $errors = $validator->errors();
+            return redirect()->route('technician.edit')
+                ->withInput()->withErrors($errors);
+        }    
     $technicians = technician::find($id); 
     if ($technicians) {
         return view('technician.edit', compact('technicians'));

@@ -6,9 +6,23 @@ use App\Models\Activity;
 use App\Models\Technician;
 use App\Models\TypeActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ActivityController extends Controller
 {
+    private $rules = [
+        'description' => 'required|string|min:3|max:255',
+        'hours' => 'required|numeric|min:1|max:9999999999',
+        'technician_id' => 'required|numeric|min:1|max:99999999999999999999',
+        'type_activity_id' => 'required|numeric|min:1|max:99999999999999999999'
+    ];
+    private $traductionAttributes = [
+        'description' => 'Descripción',
+        'hours' => 'Horas',
+        'technician_id' => 'Técnico',
+        'type_activity_id' => 'Tipo de Actividad'
+    ];
+    
     /**
      * Display a listing of the resource.
      */
@@ -33,7 +47,16 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-       $activity =  Activity::create($request->all());
+        $validator = Validator::make($request->all(), $this->rules);
+      $validator->setAttributeNames($this->traductionAttributes);
+        if ($validator->fails()) 
+        {
+            $errors = $validator->errors();
+            return redirect()->route('activity.create')
+                ->withInput()->withErrors($errors);
+        }
+
+        $activity =  Activity::create($request->all());
         session()->flash('message', 'Registro creado exitosamente');
         return redirect()->route('activity.index');
     }
@@ -49,8 +72,17 @@ class ActivityController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
+      $validator = Validator::make($request->all(), $this->rules);
+      $validator->setAttributeNames($this->traductionAttributes);
+        if ($validator->fails()) 
+        {
+            $errors = $validator->errors();
+            return redirect()->route('type_activity.edit')
+                ->withInput()->withErrors($errors);
+        }
+
         $activity = Activity::find($id);
         if ($activity) //si existe el causal
         {
@@ -73,12 +105,21 @@ class ActivityController extends Controller
      */
     public function update(Request $request, string $id)
     {
+      $validator = Validator::make($request->all(), $this->rules);
+      $validator->setAttributeNames($this->traductionAttributes);
+        if ($validator->fails()) 
+        {
+            $errors = $validator->errors();
+            return redirect()->route('activity.edit', $id)
+                ->withInput()->withErrors($errors);
+    
+        }
         $activity = Activity::find($id);
         if ($activity) //si existe el causal
         {
-            return view('activity.edit', compact('activity'));
+            $activity->update($request->all());
             session()->flash('message', 'Registro actualizado exitosamente');
-             
+            return redirect()->route('activity.index');
         }
         else
         {

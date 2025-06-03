@@ -15,7 +15,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('index') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Home</span></a>
             </li>
@@ -28,6 +28,8 @@
                 Ordenes
             </div>
 
+            @can('admin-supervisor')
+                
             
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
@@ -43,7 +45,8 @@
                         </div>
                     </div>
                 </li> 
-            
+                @endcan
+                @can('administrador')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2"
                     aria-expanded="true" aria-controls="collapse2">
@@ -57,7 +60,10 @@
                         </div>
                     </div>
                 </li>             
-
+                @endcan
+                @can('administrador')
+                    
+                
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3"
                     aria-expanded="true" aria-controls="collapse3">
@@ -71,7 +77,7 @@
                         </div>
                     </div>
                 </li>
-            
+                @endcan
 
             <!-- Divider -->
             <hr class="sidebar-divider"/>
@@ -81,6 +87,8 @@
                 Actividades
             </div>
 
+            @can('admin-supervisor')
+                
             
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
@@ -96,7 +104,10 @@
                         </div>
                     </div>
                 </li>
-           
+                @endcan
+                @can('administrador')
+                    
+                
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5"
                     aria-expanded="true" aria-controls="collapse5">
@@ -110,7 +121,7 @@
                         </div>
                     </div>
                 </li>
-           
+           @endcan
 
             <!-- Divider -->
             <hr class="sidebar-divider"/>
@@ -120,7 +131,9 @@
                 <div class="sidebar-heading">
                     Técnicos
                 </div>
-
+                @can('supervisor')
+                    
+                
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse6"
                     aria-expanded="true" aria-controls="collapse6">
@@ -134,7 +147,7 @@
                         </div>
                     </div>
                 </li>
-            
+            @endcan
                 <!-- Heading -->
                 <div class="sidebar-heading">
                     Reportes

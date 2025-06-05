@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CausalController;
 use App\Http\Controllers\ObservationController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TechnicianController;
 use App\Http\Controllers\Type_ActivityController;
 use App\Models\Order;
@@ -109,6 +110,10 @@ Route::middleware(['auth','can:admin-supervisor'])->prefix('order')->group(funct
     Route::get('/remove_activity/{order_id}/{activity_id}', [OrderController::class,'remove_activity'])->name('order.remove_activity');
 });
 
+Route::middleware(['auth','can:administrador'])->prefix('reports')->group(function () {
+    Route::get('/index', [ReportController::class,'index'])->name('reports.index');
+    Route::get('/export_technicians', [ReportController::class,'export_technicians'])->name('reports.technicians');
+});
 
 
 

@@ -18,6 +18,7 @@ class AuthController extends Controller
     private $traductionAttributes = [
         'name' => 'nombre',
         'password' => 'contraseña',
+        'password_confirmation'=>'Confirmar contraseña'
         
     ];
 
